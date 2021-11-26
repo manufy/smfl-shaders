@@ -16,9 +16,13 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <math.h>
 
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
+
+#define SHADER_FILENAME         "f3.frag"
 
 int main(int, char const**)
 {
@@ -52,9 +56,27 @@ int main(int, char const**)
     if (!music.openFromFile(resourcePath() + "nice_music.ogg")) {
         return EXIT_FAILURE;
     }
+    
+    // Check if shaders are available
+      if (!sf::Shader::isAvailable())
+      {
+          std::cerr << "Shader are not available" << std::endl;
+          return -1;
+      }
+
+      // Load shaders
+      sf::Shader shader;
+      if (!shader.loadFromFile(resourcePath() +SHADER_FILENAME, sf::Shader::Fragment))
+      {
+          std::cerr << "Error while shaders" << std::endl;
+          return -1;
+      }
+
 
     // Play the music
     music.play();
+    
+    sf::Clock time;
 
     // Start the game loop
     while (window.isOpen())
@@ -73,12 +95,18 @@ int main(int, char const**)
                 window.close();
             }
         }
+        
+        // shader.setParameter,("time", time.getElapsedTime().asSeconds());
+       
+        shader.setUniform("resolution", sf::Vector2f(sprite.getTexture()->getSize().x, sprite.getTexture()->getSize().y));
+     
 
         // Clear screen
-        window.clear();
+        window.clear(sf::Color(127,127,127));
 
         // Draw the sprite
-        window.draw(sprite);
+        //window.draw(sprite);
+        window.draw(sprite,&shader);
 
         // Draw the string
         window.draw(text);
