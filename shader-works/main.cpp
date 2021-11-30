@@ -19,12 +19,13 @@
 #include <iostream>
 #include <math.h>
 #include <SFML/System.hpp>
+#include "SFML/OpenGL.hpp" 
 
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
 
 #define SHADER_FILENAME         "f3.frag"
-#define VSHADER_FILENAME         "f1.vert"
+#define VSHADER_FILENAME         "polar.vert"
 #define SCREEN_HEIGHT = 768;
 #define SCREEN_WIDTH = 1024;
 
@@ -91,8 +92,10 @@ int main(int, char const**)
     int microsecondsInSecond = 1000000;
     unsigned int Seed = 10;
     float disp = 1.0;
-
-    
+    //glEnable(GL_DEPTH_TEST);
+    glEnable(0x8642);
+        glEnable(GL_POINT_SMOOTH);
+        glEnable(GL_BLEND);
     sf::VertexArray particles2(sf::Points, 10000);
     
     for (int i = 0; i < 10000; i++)
@@ -137,6 +140,8 @@ int main(int, char const**)
 
         window.draw(particles);
         vshader.setUniform("time",disp);
+        vshader.setUniform("uK",10);
+        vshader.setUniform("aTheta",rand() % 360);
         disp++;
         
         window.draw(particles2,&vshader);

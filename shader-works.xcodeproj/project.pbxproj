@@ -23,6 +23,7 @@
 		32C6205B2750C150003BD56A /* f2.frag in Resources */ = {isa = PBXBuildFile; fileRef = 32C6205A2750C150003BD56A /* f2.frag */; };
 		32C6205D2750C3DE003BD56A /* f3.frag in Resources */ = {isa = PBXBuildFile; fileRef = 32C6205C2750C3DE003BD56A /* f3.frag */; };
 		32C6205F2755AAF3003BD56A /* f1.vert in Resources */ = {isa = PBXBuildFile; fileRef = 32C6205E2755AAF3003BD56A /* f1.vert */; };
+		32C620612756748B003BD56A /* polar.vert in Resources */ = {isa = PBXBuildFile; fileRef = 32C620602756748B003BD56A /* polar.vert */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +46,11 @@
 		32C620582750C05F003BD56A /* f1.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = f1.frag; sourceTree = "<group>"; };
 		32C6205A2750C150003BD56A /* f2.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = f2.frag; sourceTree = "<group>"; };
 		32C6205C2750C3DE003BD56A /* f3.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = f3.frag; sourceTree = "<group>"; };
-		32C6205E2755AAF3003BD56A /* f1.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = f1.vert; sourceTree = "<group>"; };
+		32C6205E2755AAF3003BD56A /* f1.vert */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; path = f1.vert; sourceTree = "<group>"; };
+		32C620602756748B003BD56A /* polar.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = polar.vert; sourceTree = "<group>"; };
+		32C62063275693B6003BD56A /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		32C62065275693CC003BD56A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		32C62067275693D7003BD56A /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +69,7 @@
 			children = (
 				32C6203527504D56003BD56A /* shader-works */,
 				32C6203427504D56003BD56A /* Products */,
+				32C62062275693B6003BD56A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,8 +119,19 @@
 				32C6205A2750C150003BD56A /* f2.frag */,
 				32C6205C2750C3DE003BD56A /* f3.frag */,
 				32C6205E2755AAF3003BD56A /* f1.vert */,
+				32C620602756748B003BD56A /* polar.vert */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		32C62062275693B6003BD56A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32C62067275693D7003BD56A /* GLUT.framework */,
+				32C62065275693CC003BD56A /* OpenGL.framework */,
+				32C62063275693B6003BD56A /* GLKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +204,7 @@
 				32C62051275051BD003BD56A /* shader2.frag in Resources */,
 				32C62053275051FE003BD56A /* shader3.frag in Resources */,
 				32C6204127504D56003BD56A /* nice_music.ogg in Resources */,
+				32C620612756748B003BD56A /* polar.vert in Resources */,
 				32C6205B2750C150003BD56A /* f2.frag in Resources */,
 				32C6204D27504F7B003BD56A /* water.frag in Resources */,
 				32C6203F27504D56003BD56A /* cute_image.jpg in Resources */,
@@ -320,13 +338,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_ENTITLEMENTS = "shader-works/shader-works.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YGGD6928EZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "shader-works/shader-works-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(SFML_SYSTEM)",
+					"$(SFML_WINDOW)",
+					"$(SFML_GRAPHICS)",
+					"$(SFML_AUDIO)",
+					"$(SFML_NETWORK)",
+					"-framework",
+					OpenGL,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -336,13 +368,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_ENTITLEMENTS = "shader-works/shader-works.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YGGD6928EZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "shader-works/shader-works-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(SFML_SYSTEM)",
+					"$(SFML_WINDOW)",
+					"$(SFML_GRAPHICS)",
+					"$(SFML_AUDIO)",
+					"$(SFML_NETWORK)",
+					"-framework",
+					OpenGL,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

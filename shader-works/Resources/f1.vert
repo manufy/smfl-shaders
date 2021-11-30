@@ -1,6 +1,11 @@
 uniform float time;
+
+
+
 void main()
 {
+
+
     // transform the vertex position
    vec3 pos = gl_Vertex.xyz;
    pos.x +=1.0 * (time);
