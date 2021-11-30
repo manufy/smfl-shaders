@@ -22,6 +22,7 @@
 		32C620592750C05F003BD56A /* f1.frag in Resources */ = {isa = PBXBuildFile; fileRef = 32C620582750C05F003BD56A /* f1.frag */; };
 		32C6205B2750C150003BD56A /* f2.frag in Resources */ = {isa = PBXBuildFile; fileRef = 32C6205A2750C150003BD56A /* f2.frag */; };
 		32C6205D2750C3DE003BD56A /* f3.frag in Resources */ = {isa = PBXBuildFile; fileRef = 32C6205C2750C3DE003BD56A /* f3.frag */; };
+		32C6205F2755AAF3003BD56A /* f1.vert in Resources */ = {isa = PBXBuildFile; fileRef = 32C6205E2755AAF3003BD56A /* f1.vert */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		32C620582750C05F003BD56A /* f1.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = f1.frag; sourceTree = "<group>"; };
 		32C6205A2750C150003BD56A /* f2.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = f2.frag; sourceTree = "<group>"; };
 		32C6205C2750C3DE003BD56A /* f3.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = f3.frag; sourceTree = "<group>"; };
+		32C6205E2755AAF3003BD56A /* f1.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = f1.vert; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				32C620582750C05F003BD56A /* f1.frag */,
 				32C6205A2750C150003BD56A /* f2.frag */,
 				32C6205C2750C3DE003BD56A /* f3.frag */,
+				32C6205E2755AAF3003BD56A /* f1.vert */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				32C6205D2750C3DE003BD56A /* f3.frag in Resources */,
 				32C6204F2750516E003BD56A /* shader1.frag in Resources */,
 				32C6204527504D56003BD56A /* icon.png in Resources */,
+				32C6205F2755AAF3003BD56A /* f1.vert in Resources */,
 				32C620592750C05F003BD56A /* f1.frag in Resources */,
 				32C6204327504D56003BD56A /* sansation.ttf in Resources */,
 				32C6205527505230003BD56A /* shader4.frag in Resources */,

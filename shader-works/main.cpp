@@ -18,16 +18,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
+#include <SFML/System.hpp>
 
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
 
 #define SHADER_FILENAME         "f3.frag"
+#define VSHADER_FILENAME         "f1.vert"
+#define SCREEN_HEIGHT = 768;
+#define SCREEN_WIDTH = 1024;
 
 int main(int, char const**)
 {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML window");
 
     // Set the Icon
     sf::Image icon;
@@ -71,12 +75,32 @@ int main(int, char const**)
           std::cerr << "Error while shaders" << std::endl;
           return -1;
       }
+    
+    sf::Shader vshader;
+    if (!vshader.loadFromFile(resourcePath() +VSHADER_FILENAME, sf::Shader::Vertex))
+    {
+        std::cerr << "Error while shaders" << std::endl;
+        return -1;
+    }
 
 
     // Play the music
-    music.play();
+    // music.play();
     
     sf::Clock time;
+    int microsecondsInSecond = 1000000;
+    unsigned int Seed = 10;
+    float disp = 1.0;
+
+    
+    sf::VertexArray particles2(sf::Points, 10000);
+    
+    for (int i = 0; i < 10000; i++)
+       {
+         particles2[i].position = sf::Vector2f(rand() % 1024,rand() % 768);
+           particles2[i].color = sf::Color::Yellow;
+                
+       }
 
     // Start the game loop
     while (window.isOpen())
@@ -96,23 +120,49 @@ int main(int, char const**)
             }
         }
         
+        
+      
+        
         // shader.setParameter,("time", time.getElapsedTime().asSeconds());
        
         shader.setUniform("resolution", sf::Vector2f(sprite.getTexture()->getSize().x, sprite.getTexture()->getSize().y));
      
 
         // Clear screen
-        window.clear(sf::Color(127,127,127));
+        window.clear(sf::Color::Black);
+        
+        sf::VertexArray particles(sf::Points,1);
+        particles[0].position = sf::Vector2f(10.f, 10.f);
+        particles[0].color = sf::Color::Green;
+
+        window.draw(particles);
+        vshader.setUniform("time",disp);
+        disp++;
+        
+        window.draw(particles2,&vshader);
+
+             //  window.draw(particles,1000,sf::Points);
 
         // Draw the sprite
         //window.draw(sprite);
-        window.draw(sprite,&shader);
+      //  window.draw(sprite,&shader);
 
         // Draw the string
         window.draw(text);
-
+       // window.draw(particles,sf::Points);
+        
+        sf::Vertex point(sf::Vector2f(100, 100), sf::Color::Red);
+        window.draw(&point, 1, sf::Points);
+        
+        
+   //xs sf::Vertex vertex = sf::Vertex.new({10, 50}, SF::Color::Red, {100, 1 });
+        //    window.draw(vertex);
         // Update the window
         window.display();
+        
+        //Print current aproximate fps
+         std::string fps("fps: " + std::to_string((microsecondsInSecond / time.restart().asMicroseconds())));
+         text.setString(fps);
     }
 
     return EXIT_SUCCESS;
